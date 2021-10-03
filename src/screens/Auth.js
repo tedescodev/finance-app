@@ -23,7 +23,7 @@ const Auth = ({ size }) => {
     }
   }
 
-  return <View style={container}>{whichForm}</View>
+  return <View style={container}>{whichForm()}</View>
 };
 
 const styles = {

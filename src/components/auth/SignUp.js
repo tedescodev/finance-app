@@ -4,10 +4,10 @@ import { Input, TextLink, Button, Loading } from "../common";
 
 const SignUp = ({authSwitch}) => {
   const { form, section, errorTextStyle } = styles;
-  const [email, setEmail] = useState(false);
-  const [password, setPassword] = useState(false);
-  const [password_confirmation, setPasswordConfirmation] = useState(false);
-  const [error, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password_confirmation, setPasswordConfirmation] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ const SignUp = ({authSwitch}) => {
         <View style={section}>
           <Input
             secureTextEntry
-            placeholder="password"
+            placeholder="gSst^xW$548"
             label="Password"
             value={password}
             onChangeText={(password) => setPassword(password)}
@@ -35,7 +35,7 @@ const SignUp = ({authSwitch}) => {
         <View style={section}>
           <Input
             secureTextEntry
-            placeholder="confirm password"
+            placeholder="gSst^xW$548"
             label="Confirm Password"
             value={password_confirmation}
             onChangeText={(password_confirmation) =>

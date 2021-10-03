@@ -5,9 +5,9 @@ import { Input, TextLink, Button, Loading } from "../common";
 const SignIn = ({ authSwitch }) => {
   const { form, section, errorTextStyle } = styles;
 
-  const [email, setEmail] = useState(false);
-  const [password, setPassword] = useState(false);
-  const [error, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   return (
