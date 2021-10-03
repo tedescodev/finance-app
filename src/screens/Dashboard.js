@@ -1,10 +1,10 @@
 import React from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 
 const Dashboard = ({ size }) => {
   return (
     <View style={styles.spinnerContainer}>
-      <ActivityIndicator size={size} />
+      <Text>Adentro</Text>
     </View>
   );
 };

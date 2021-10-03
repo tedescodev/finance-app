@@ -1,18 +1,68 @@
 import React, { useState, Fragment } from "react";
 import { View, Text } from "react-native";
 import { Input, TextLink, Button, Loading } from "../common";
+import axios from "axios";
 
-const SignUp = ({authSwitch}) => {
+const SignUp = ({ authSwitch }) => {
   const { form, section, errorTextStyle } = styles;
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const onRegistrationFail = () => {
+    setError('Registration Failed')
+    setLoading(false)
+  }
+
+  const registerUser = () => {
+    setError("");
+    setLoading(true);
+    debugger
+    axios
+      .post("http://localhost:5000/v1/api/auth/signup", {
+        name,
+        username,
+        email,
+        password,
+        requestedBy: "Finance App"
+      })
+      .then((response) => {
+        setLoading(false);
+        authSwitch()
+        console.log(response)
+        
+      })
+      .catch((error) => {
+        console.log(error)
+        onRegistrationFail()
+      });
+  };
+
   return (
     <Fragment>
       <View style={form}>
+      <View style={section}>
+          <Input
+            placeholder="Martin Rodriguez"
+            label="Name"
+            value={name}
+            onChangeText={(name) => setName(name)}
+          />
+        </View>
+
+        <View style={section}>
+          <Input
+            placeholder="tincho"
+            label="Username"
+            value={username}
+            onChangeText={(username) => setUsername(username)}
+          />
+        </View>
+
         <View style={section}>
           <Input
             placeholder="user@email.com"
@@ -46,11 +96,9 @@ const SignUp = ({authSwitch}) => {
 
         <Text style={errorTextStyle}>{error}</Text>
 
-        {!loading ? <Button>Register</Button> : <Loading size={"large"} />}
+        {!loading ? <Button onPress={registerUser}>Register</Button> : <Loading size={"large"} />}
       </View>
-      <TextLink onPress={authSwitch}>
-        Already have an account? Log in!
-      </TextLink>
+      <TextLink onPress={authSwitch}>Already have an account? Log in!</TextLink>
     </Fragment>
   );
 };

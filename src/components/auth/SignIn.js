@@ -1,24 +1,53 @@
 import React, { useState, Fragment } from "react";
 import { View, Text } from "react-native";
 import { Input, TextLink, Button, Loading } from "../common";
+import axios from 'axios';
+import deviceStorage from '../../services/deviceStorage';
 
-const SignIn = ({ authSwitch }) => {
+const SignIn = ({ newJWT, authSwitch }) => {
   const { form, section, errorTextStyle } = styles;
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const onLoginFail = () => {
+    setError('Login Failed')
+    setLoading(false)
+  }
+
+  const loginUser = () => {
+    setError("");
+    setLoading(true);
+    debugger
+    axios
+      .post("http://localhost:5000/v1/api/auth/signin", {
+        username,
+        password
+      })
+      .then((response) => {
+        setLoading(false);
+        deviceStorage.saveItem("id_token", response.data.token)
+        newJWT(response.data.token)
+        console.log(response)
+        
+      })
+      .catch((error) => {
+        console.log(error)
+        onLoginFail();
+      });
+  };
 
   return (
     <Fragment>
       <View style={form}>
         <View style={section}>
           <Input
-            placeholder="user@email.com"
-            label="Email"
-            value={email}
-            onChangeText={(email) => setEmail(email)}
+            placeholder="tinchodev"
+            label="Username"
+            value={username}
+            onChangeText={(username) => setUsername(username)}
           />
         </View>
 
@@ -34,7 +63,7 @@ const SignIn = ({ authSwitch }) => {
 
         <Text style={errorTextStyle}>{error}</Text>
 
-        {!loading ? <Button>Login</Button> : <Loading size={"large"} />}
+        {!loading ? <Button onPress={loginUser}>Login</Button> : <Loading size={"large"} />}
       </View>
       <TextLink onPress={authSwitch}>
         Don't have an account? Register!

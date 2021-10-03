@@ -9,8 +9,13 @@ import { Auth, Dashboard } from "./src/screens";
 export default function App() {
   const [jwt, setJwt] = useState("");
 
+  const newJWT = (jwt) => {
+    debugger
+    setJwt(jwt)
+  }  
+
   return (
-    <View style={styles.container}>{!jwt ? <Auth /> : <Dashboard />}</View>
+    <View style={styles.container}>{!jwt ? <Auth newJWT={newJWT} /> : <Dashboard />}</View>
   );
 }
 
