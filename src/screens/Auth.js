@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { SignIn, SignUp } from "../components/auth";
 
-const Auth = ({ newJWT }) => {
+const Auth = ({ handleJwt }) => {
   const { container } = styles;
 
   const [showLogin, setShowLogin] = useState(false);
@@ -14,11 +14,11 @@ const Auth = ({ newJWT }) => {
   const whichForm = () => {
     if(!showLogin){
       return(
-        <SignUp newJWT={newJWT} authSwitch={authSwitch} />
+        <SignIn handleJwt={handleJwt} authSwitch={authSwitch} />
       )
     } else {
       return(
-        <SignIn newJWT={newJWT} authSwitch={authSwitch} />
+        <SignUp authSwitch={authSwitch} />
       )
     }
   }

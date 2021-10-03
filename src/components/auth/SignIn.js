@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from "react";
 import { View, Text } from "react-native";
 import { Input, TextLink, Button, Loading } from "../common";
-import axios from 'axios';
-import deviceStorage from '../../services/deviceStorage';
+import axios from "axios";
+import { Storage } from "expo-storage";
 
-const SignIn = ({ newJWT, authSwitch }) => {
-  const { form, section, errorTextStyle } = styles;
+const SignIn = ({ handleJwt, authSwitch }) => {
+  const { form, section, inputStyle, errorTextStyle } = styles;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,28 +13,39 @@ const SignIn = ({ newJWT, authSwitch }) => {
   const [loading, setLoading] = useState(false);
 
   const onLoginFail = () => {
-    setError('Login Failed')
-    setLoading(false)
-  }
+    setError("Login Failed");
+    setLoading(false);
+  };
+
+  const saveItem = async (key, value) => {
+    debugger;
+    try {
+      await Storage.setItem({
+        key: `${key}`,
+        value: value,
+      });
+    } catch (error) {
+      console.log("AsyncStorage Error: " + error.message);
+    }
+  };
 
   const loginUser = () => {
     setError("");
     setLoading(true);
-    debugger
+    debugger;
     axios
       .post("http://localhost:5000/v1/api/auth/signin", {
         username,
-        password
+        password,
       })
       .then((response) => {
         setLoading(false);
-        deviceStorage.saveItem("id_token", response.data.token)
-        newJWT(response.data.token)
-        console.log(response)
-        
+        saveItem("id_token", response.data.token);
+        handleJwt(response.data.token);
+        console.log(response);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         onLoginFail();
       });
   };
@@ -63,11 +74,13 @@ const SignIn = ({ newJWT, authSwitch }) => {
 
         <Text style={errorTextStyle}>{error}</Text>
 
-        {!loading ? <Button onPress={loginUser}>Login</Button> : <Loading size={"large"} />}
+        {!loading ? (
+          <Button onPress={loginUser}>Login</Button>
+        ) : (
+          <Loading size={"large"} />
+        )}
       </View>
-      <TextLink onPress={authSwitch}>
-        Don't have an account? Register!
-      </TextLink>
+      <TextLink onPress={authSwitch}>Don't have an account? Register!</TextLink>
     </Fragment>
   );
 };
@@ -75,14 +88,10 @@ const SignIn = ({ newJWT, authSwitch }) => {
 const styles = {
   form: {
     width: "100%",
-    borderTopWidth: 1,
-    borderColor: "#ddd",
   },
   section: {
     flexDirection: "row",
-    borderBottomWidth: 1,
     backgroundColor: "#fff",
-    borderColor: "#ddd",
   },
   errorTextStyle: {
     alignSelf: "center",

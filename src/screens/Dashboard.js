@@ -1,11 +1,29 @@
 import React from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { Fragment } from "react";
+import { View, Text, Button } from "react-native";
 
-const Dashboard = ({ size }) => {
+import { Storage } from "expo-storage";
+
+const Dashboard = ({ handleJwt }) => {
+  const deleteJWT = async () => {
+    debugger
+    try {
+      await Storage.removeItem({ key: "id_token" });
+      const value = await Storage.getItem({ key: "id_token" });
+      if (value === null) {
+        handleJwt(null);
+      }
+    } catch (error) {
+      console.log("AsyncStorage Error: " + error.message);
+    }
+  };
   return (
-    <View style={styles.spinnerContainer}>
-      <Text>Adentro</Text>
-    </View>
+    <Fragment>
+      <View style={styles.container}>
+        <Text>Adentro</Text>
+        <Button onPress={deleteJWT}>Log Out</Button>
+      </View>
+    </Fragment>
   );
 };
 
@@ -14,6 +32,10 @@ const styles = {
     flex: -1,
     marginTop: 12,
     marginBottom: 12,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
   },
 };
 
