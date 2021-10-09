@@ -1,5 +1,5 @@
 <template>
   <div>
-    <Logo />
+    <DataPersonal />
   </div>
 </template>

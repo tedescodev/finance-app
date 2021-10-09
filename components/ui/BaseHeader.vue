@@ -6,8 +6,11 @@
         alt=""
         class="w-6 mr-3"
       />
-      <h1 class="font-bold text-base">Tu tienda online</h1>
+      <h1 class="font-bold text-base">Finance</h1>
     </nuxt-link>
+    <div class="hidden md:block">
+      <ColorSwitch />
+    </div>
     <nuxt-link class="hidden md:block" to="/profile">
       <img
         class="w-10 rounded-full"
@@ -19,8 +22,12 @@
 </template>
 
 <script>
+import ColorSwitch from '~/components/ui/ColorSwitch.vue'
 export default {
   name: 'BaseHeader',
+  components: {
+    ColorSwitch,
+  },
 }
 </script>
 <style scoped>

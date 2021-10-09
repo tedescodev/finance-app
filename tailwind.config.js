@@ -24,6 +24,14 @@ module.exports = {
           900: '#131419',
         },
       },
+      fontFamily: {
+        pacifico: ['Pacifico'],
+        montserrat: ['Montserrat'],
+        roboto: ['Roboto'],
+        righteous: ['Righteous'],
+        lato: ['Lato'],
+        raleway: ['Raleway'],
+      },
     },
   },
   experimental: {

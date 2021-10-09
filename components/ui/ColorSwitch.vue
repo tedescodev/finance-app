@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ $colorMode.preference }}
+    <!-- {{ $colorMode.preference }} -->
     <IconDark
       v-if="$colorMode.preference != 'dark'"
       class="cursor-pointer fill-white"
