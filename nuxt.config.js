@@ -41,8 +41,16 @@ export default {
     '@nuxtjs/color-mode',
   ],
 
+  publicRuntimeConfig: {
+    axios: {
+      baseURL: 'http://localhost:5000/v1/api/',
+    },
+  },
+
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    // https://auth.nuxtjs.org/
+    // '@nuxtjs/auth-next',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa

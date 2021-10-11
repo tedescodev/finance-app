@@ -25,7 +25,8 @@
     }
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/firebase": "^7.1.1",
     "@nuxtjs/pwa": "^3.0.2",
     "core-js": "^3.6.5",
